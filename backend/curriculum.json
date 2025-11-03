@@ -1,0 +1,26 @@
+[
+  {
+    "id": 1,
+    "formacion": "Curso desarrollador Web",
+    "fecha": "2025",
+    "duracion": "580 horas"
+  },
+  {
+    "id": 2,
+    "formacion": "Curso de Unity",
+    "fecha": "2025",
+    "duracion": "150 horas"
+  },
+  {
+    "id": 3,
+    "formacion": "Curso IoT",
+    "fecha": "2025",
+    "duracion": "150 horas"
+  },
+  {
+    "id": 4,
+    "formacion": "Curso de juegos JavaScript",
+    "duracion": "5 horas",
+    "fecha": "2025-11-07"
+  }
+]
