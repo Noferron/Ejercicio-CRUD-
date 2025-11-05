@@ -36,6 +36,8 @@ async function cargarFormaciones() {
         <p><strong>Formación:</strong> ${forma.formacion}</p>
         <p><strong>Duración:</strong> ${forma.duracion}</p>
         <p><strong>Fecha:</strong> ${forma.fecha}</p>
+        <button onclick="editarFormacion(${forma.id}, '${forma.formacion}', '${forma.duracion}', '${forma.fecha}')">Editar</button>
+        <button onclick="eliminarFormacion(${forma.id})">Eliminar</button>
       `;
       contenedor.appendChild(card);
     });
@@ -72,7 +74,15 @@ formulario.addEventListener("submit", async(evento)=>{
     fecha: fecha
    };
 
-   await guardarFormaciones(datosFormacion);
+   if(idFormacionEditando){
+    await actualizarFormacion(idFormacionEditando, datosFormacion);
+    idFormacionEditando=null;
+   }
+   else{
+    await guardarFormaciones(datosFormacion);
+   }
+
+   formulario.reset();
    cargarFormaciones();
 });
 
@@ -93,4 +103,53 @@ async function guardarFormaciones(datosFormacion) {
     catch (error){
         console.error("Error al crear formación", error);
     }
+}
+
+//---------------Editar formaciones----------------------------------
+let idFormacionEditando = null;
+
+function editarFormacion (id,formacion,duracion,fecha){
+  campoFormacion.value = formacion;
+  campoDuracion.value = duracion;
+  campoFecha.value = fecha;
+  idFormacionEditando = id;
+}
+
+//-------------Actualizar formación-----------------------------------
+async function actualizarFormacion(id,datosFormacion) {
+  try{
+    const res = await fetch(`${URL_API}/${id}`,{
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body:JSON.stringify(datosFormacion)
+    });
+
+    const datos= await res.json();
+    console.log("Formación actualizada:", datos);
+  }
+  catch(error){
+    console.error("Error al actualizar formación", error);
+  }
+}
+
+//---------------Eliminar formación-------------------------------------
+
+async function eliminarFormacion(id) {
+  if(!confirm("¿Estás seguro de que quieres eliminar esta formación"))return;
+
+  try{
+    const res =await fetch (`${URL_API}/${id}`,{
+      method:"DELETE"
+    });
+
+    const datos = await res.json();
+    console.log("Formación eliminada:", datos);
+    cargarFormaciones();
+  }
+  catch(error){
+    console.error("Error al eliminar formación", error);
+  }
+  
 }

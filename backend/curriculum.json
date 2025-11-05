@@ -16,11 +16,5 @@
     "formacion": "Curso IoT",
     "fecha": "2025",
     "duracion": "150 horas"
-  },
-  {
-    "id": 4,
-    "formacion": "Curso de juegos JavaScript",
-    "duracion": "5 horas",
-    "fecha": "2025-11-07"
   }
 ]
